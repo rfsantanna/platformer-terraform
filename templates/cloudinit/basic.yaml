@@ -1,0 +1,6 @@
+package_update: true
+packages:
+  - wget
+  - curl
+  - git
+  - gnupg

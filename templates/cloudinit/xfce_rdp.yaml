@@ -1,0 +1,14 @@
+package_update: true
+packages:
+  - xfce4
+  - tightvncserver
+  - xrdp
+
+runcmd:
+  - sudo useradd -m ${remote_user_name} 
+  - echo "${remote_user_name}:${remote_user_password}" | sudo chpasswd
+  - sudo systemctl enable xrdp 
+  - sudo systemctl start xrdp
+  - echo "xfce4-session" | sudo -u ${remote_user_name} tee -a /home/${remote_user_name}/.xsession
+
+
