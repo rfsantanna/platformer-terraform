@@ -7,10 +7,6 @@ terraform {
   required_version = ">= 0.13"
 }
 
-provider "azurerm" {
-  features {}
-}
-
 data "azurerm_resource_group" "vnet_rg" {
   name = var.resource_group_name
 }

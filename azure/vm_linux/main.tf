@@ -7,10 +7,6 @@ terraform {
   required_version = ">= 0.13"
 }
 
-provider "azurerm" {
-  features {}
-}
-
 module "vm_rg" {
   source = "git::https://github.com/rfsantanna/infracode-terraform//azure/resource_group"
   resource_group_name = var.resource_group_name
