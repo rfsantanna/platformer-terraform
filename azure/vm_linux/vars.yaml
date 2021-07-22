@@ -1,0 +1,34 @@
+machine_sizes:
+  micro:
+    machine_size: Standard_B1s
+  small:
+    machine_size: Standard_B1ms
+  medium:
+    machine_size: Standard_B2s
+  medium_mem_x2:
+    machine_size: Standard_B2ms
+  high:
+    machine_size: Standard_B4ms
+os_type:
+  centos_8:
+    image_publisher: OpenLogic
+    image_offer: CentOS
+    image_sku: "8_3"
+    image_version: latest
+  centos_7:
+    image_publisher: OpenLogic
+    image_offer: CentOS
+    image_sku: "7_8"
+    image_version: latest
+  ubuntu_18_04:
+    image_publisher: Canonical
+    image_offer: UbuntuServer
+    image_sku: "18.04-LTS"
+    image_version: latest
+os_disk:
+  small:
+    size: 64
+    type: Standard_LRS
+  medium:
+    size: 128
+    type: Standard_LRS

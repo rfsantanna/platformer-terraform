@@ -1,0 +1,6 @@
+package_update: true
+packages:
+  - jq
+
+runcmd:
+  - echo "JQ" > /tmp/jqtest

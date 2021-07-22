@@ -1,0 +1,9 @@
+package_update: true
+packages:
+  - wget
+  - curl
+  - git
+  - gnupg
+
+runcmd:
+  - echo "TEST" > /tmp/testruncmd
