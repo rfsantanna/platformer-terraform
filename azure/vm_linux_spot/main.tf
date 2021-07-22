@@ -8,14 +8,14 @@ terraform {
 }
 
 module "vm_rg" {
-  source = "git::https://github.com/rfsantanna/infracode-terraform//azure/resource_group"
+  source = "git::https://github.com/rfsantanna/platformer-terraform//azure/resource_group"
   resource_group_name = var.resource_group_name
   resource_group_location = var.location
   create_resource_group = var.create_resource_group
 }
 
 module "vm_network" {
-  source              = "git::https://github.com/rfsantanna/infracode-terraform//azure/vm_network"
+  source              = "git::https://github.com/rfsantanna/platformer-terraform//azure/vm_network"
   vnet_name           = "${var.name}-vnet"
   vnet_addr           = var.vnet_addr
   subnet_name         = "${var.name}-subnet"
