@@ -127,7 +127,7 @@ data "cloudinit_config" "config" {
     for_each = local.init_config_list
     content {
       content_type = "text/cloud-config"
-      content      = templatefile("${path.module}/cloudinit/${part.value.template}.yaml", part.value.vars)
+      content      = templatefile("${path.module}/../../templates/cloudinit/${part.value.template}.yaml", part.value.vars)
       merge_type   = "dict(recurse_array)+list(append)"
     }
   }
@@ -136,7 +136,7 @@ data "cloudinit_config" "config" {
     for_each = var.script_list
     content {
       content_type = "text/x-shellscript"
-      content      = templatefile("${path.module}/scripts/${part.value.template}.sh", part.value.vars)
+      content      = templatefile("${path.module}/../../templates/bash/${part.value.template}.sh", part.value.vars)
     }
   }
 }
