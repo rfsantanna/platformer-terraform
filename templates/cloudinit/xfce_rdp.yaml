@@ -10,5 +10,6 @@ runcmd:
   - sudo systemctl enable xrdp 
   - sudo systemctl start xrdp
   - echo "xfce4-session" | sudo -u ${remote_user_name} tee -a /home/${remote_user_name}/.xsession
+  - dpkg --configure -a
 
 
