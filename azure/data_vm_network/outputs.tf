@@ -11,7 +11,7 @@ output "subnets" {
 }
 
 output "vnet_rg" {
-  value = data.azurerm_virtual_network.vnet.resource_group_name
+  value = data.azurerm_resource_group.vnet_rg
 }
 
 output "public_ip" {
