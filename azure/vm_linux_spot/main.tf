@@ -15,7 +15,7 @@ module "vm_rg" {
 }
 
 module "vm_network" {
-  source              = "git::https://github.com/rfsantanna/platformer-terraform//azure/vm_network"
+  source              = "git::https://github.com/rfsantanna/platformer-terraform//azure/data_vm_network"
   vnet_name           = "${var.name}-vnet"
   vnet_addr           = var.vnet_addr
   subnet_name         = "${var.name}-subnet"
