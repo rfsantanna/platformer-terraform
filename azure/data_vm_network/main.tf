@@ -18,7 +18,7 @@ data "azurerm_public_ip" "ip" {
 
 resource "azurerm_public_ip" "ip" {
   count               = var.dynamic_ip ? 1 : 0
-  name                = "${var.vnet_name}-ip-dyn"
+  name                = "${var.id}-ip-dyn"
   resource_group_name = data.azurerm_resource_group.vnet_rg.name
   location            = data.azurerm_resource_group.vnet_rg.location
   allocation_method   = "Dynamic"
@@ -36,7 +36,7 @@ data "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = "${var.vnet_name}-nsg"
+  name                = "${var.id}-nsg"
   resource_group_name = data.azurerm_resource_group.vnet_rg.name
   location            = data.azurerm_resource_group.vnet_rg.location
 
@@ -54,7 +54,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = "${var.vnet_name}-nic"
+  name                = "${var.id}-nic"
   resource_group_name = data.azurerm_resource_group.vnet_rg.name
   location            = data.azurerm_resource_group.vnet_rg.location
 

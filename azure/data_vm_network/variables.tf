@@ -1,3 +1,4 @@
+variable "id" {type = string}
 variable "vnet_name" {type = string}
 variable "vnet_addr" {type = string}
 variable "subnet_name" {type = string}
