@@ -16,9 +16,9 @@ module "vm_rg" {
 
 module "vm_network" {
   source              = "git::https://github.com/rfsantanna/platformer-terraform//azure/data_vm_network"
-  vnet_name           = "${var.name}-vnet"
+  vnet_name           = var.vnet_name
   vnet_addr           = var.vnet_addr
-  subnet_name         = "${var.name}-subnet"
+  subnet_name         = var.subnet_name
   subnet_addr         = var.subnet_addr
   dynamic_ip          = var.dynamic_ip
   resource_group_name = module.vm_rg.resource_group.name
