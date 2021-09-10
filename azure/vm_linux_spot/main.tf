@@ -75,7 +75,7 @@ data "cloudinit_config" "config" {
   base64_encode = true
 
   dynamic "part" {
-    for_each = var.init_config_list
+    for_each = var.init_configs
     content {
       content_type = "text/cloud-config"
       content      = templatefile("${path.module}/../../templates/cloudinit/${part.key}.yaml", part.value)
@@ -84,10 +84,10 @@ data "cloudinit_config" "config" {
   }
 
   dynamic "part" {
-    for_each = var.script_list
+    for_each = var.init_scripts
     content {
       content_type = "text/x-shellscript"
-      content      = templatefile("${path.module}/../../templates/bash/${part.value.template}.sh", part.value.vars)
+      content      = templatefile("${path.module}/../../templates/bash/${part.key}.sh", part.value)
     }
   }
 }

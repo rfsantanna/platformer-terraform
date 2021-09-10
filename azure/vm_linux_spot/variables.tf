@@ -19,15 +19,15 @@ variable "create_resource_group" {
   default = false
 }
 
-variable "init_config_list" {
+variable "init_configs" {
   type = map(any)
   default = {
     basic = {}
   }
 }
 
-variable "script_list" {
-  type    = list(any)
-  default = []
+variable "init_scripts" {
+  type = map(any)
+  default = {}
 }
 
