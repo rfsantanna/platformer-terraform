@@ -7,6 +7,12 @@ terraform {
   required_version = ">= 0.13"
 }
 
+locals {
+  fixed_init = {
+    for init in var.init_config_list : init.template => init.vars
+  }
+}
+
 module "vm_rg" {
   source                  = "git::https://github.com/rfsantanna/platformer-terraform//azure/resource_group"
   resource_group_name     = var.resource_group_name
@@ -75,10 +81,10 @@ data "cloudinit_config" "config" {
   base64_encode = true
 
   dynamic "part" {
-    for_each = var.init_config_list
+    for_each = local.fixed_init
     content {
       content_type = "text/cloud-config"
-      content      = templatefile("${path.module}/../../templates/cloudinit/${part.value.template}.yaml", part.value.vars)
+      content      = templatefile("${path.module}/../../templates/cloudinit/${part.key}.yaml", part.value)
       merge_type   = "dict(recurse_array)+list(append)"
     }
   }
