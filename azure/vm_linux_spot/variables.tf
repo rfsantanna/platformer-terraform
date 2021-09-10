@@ -20,12 +20,10 @@ variable "create_resource_group" {
 }
 
 variable "init_config_list" {
-  type = list(map)
-  default = [
-    {
-      template = "basic"
-    }
-  ]
+  type = map()
+  default = {
+    basic = {}
+  }
 }
 
 variable "script_list" {
