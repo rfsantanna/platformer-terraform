@@ -24,7 +24,6 @@ variable "init_config_list" {
   default = [
     {
       template = "basic"
-      vars     = {}
     }
   ]
 }
