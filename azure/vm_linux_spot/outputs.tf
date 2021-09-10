@@ -7,6 +7,6 @@ output "vm" {
     name           = azurerm_linux_virtual_machine.vm.name
     resource_group = azurerm_linux_virtual_machine.vm.resource_group_name
     location       = azurerm_linux_virtual_machine.vm.location
-    image          = azurerm_linux_virtual_machine.vm.source_image_reference
+    image          = azurerm_linux_virtual_machine.vm.source_image_reference[0]
   }
 }
