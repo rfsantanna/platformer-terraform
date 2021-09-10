@@ -20,7 +20,7 @@ variable "create_resource_group" {
 }
 
 variable "init_config_list" {
-  type = map()
+  type = map(any)
   default = {
     basic = {}
   }
