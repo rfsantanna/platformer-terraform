@@ -12,5 +12,6 @@ output "vm" {
 }
 
 output "vm_full" {
-  value  = nonsensitive(azurerm_linux_virtual_machine.vm)
+  value    = azurerm_linux_virtual_machine.vm
+  sensitive = false
 }
