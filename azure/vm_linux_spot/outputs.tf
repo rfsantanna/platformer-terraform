@@ -10,3 +10,7 @@ output "vm" {
     image          = azurerm_linux_virtual_machine.vm.source_image_reference[0]
   }
 }
+
+output "vm_full" {
+  value  = azurerm_linux_virtual_machine.vm
+}
