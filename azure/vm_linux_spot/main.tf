@@ -15,12 +15,13 @@ module "vm_rg" {
 }
 
 module "vm_network" {
-  source              = "git::https://github.com/rfsantanna/platformer-terraform//azure/data_vm_network"
-  id                  = var.name
-  vnet_name           = var.vnet_name
-  subnet_name         = var.subnet_name
-  dynamic_ip          = var.dynamic_ip
-  resource_group_name = var.vnet_rg 
+  source      = "git::https://github.com/rfsantanna/platformer-terraform//azure/data_vm_network"
+  id          = var.name
+  vnet_name   = var.vnet_name
+  subnet_name = var.subnet_name
+  dynamic_ip  = var.dynamic_ip
+  vm_rg       = module.vm_rg.resource_group.name
+  vnet_rg     = var.vnet_rg
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {

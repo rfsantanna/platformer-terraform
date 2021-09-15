@@ -7,8 +7,19 @@ terraform {
   required_version = ">= 0.13"
 }
 
-data "azurerm_resource_group" "vnet_rg" {
-  name = var.resource_group_name
+data "azurerm_resource_group" "vm_rg" {
+  name = var.vm_rg
+}
+
+data "azurerm_virtual_network" "vnet" {
+  name = var.vnet_name
+  resource_group_name = var.static_rg
+}
+
+data "azurerm_subnet" "subnet" {
+  name = var.subnet_name
+  virtual_network_name  = data.azurerm_virtual_network.vnet.name
+  resource_group_name = var.static_rg
 }
 
 data "azurerm_public_ip" "ip" {
@@ -22,17 +33,6 @@ resource "azurerm_public_ip" "ip" {
   resource_group_name = data.azurerm_resource_group.vnet_rg.name
   location            = data.azurerm_resource_group.vnet_rg.location
   allocation_method   = "Dynamic"
-}
-
-data "azurerm_virtual_network" "vnet" {
-  name = var.vnet_name
-  resource_group_name = var.resource_group_name
-}
-
-data "azurerm_subnet" "subnet" {
-  name = var.subnet_name
-  virtual_network_name  = data.azurerm_virtual_network.vnet.name
-  resource_group_name = var.resource_group_name
 }
 
 resource "azurerm_network_security_group" "nsg" {
