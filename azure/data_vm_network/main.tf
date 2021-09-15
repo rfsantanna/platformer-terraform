@@ -24,21 +24,21 @@ data "azurerm_subnet" "subnet" {
 
 data "azurerm_public_ip" "ip" {
   name                = var.dynamic_ip ? azurerm_public_ip.ip.0.name : var.static_ip
-  resource_group_name = var.dynamic_ip ? data.azurerm_resource_group.vnet_rg.name : var.static_rg
+  resource_group_name = var.dynamic_ip ? data.azurerm_resource_group.vm_rg.name : var.static_rg
 }
 
 resource "azurerm_public_ip" "ip" {
   count               = var.dynamic_ip ? 1 : 0
   name                = "${var.id}-ip-dyn"
-  resource_group_name = data.azurerm_resource_group.vnet_rg.name
-  location            = data.azurerm_resource_group.vnet_rg.location
+  resource_group_name = data.azurerm_resource_group.vm_rg.name
+  location            = data.azurerm_resource_group.vm_rg.location
   allocation_method   = "Dynamic"
 }
 
 resource "azurerm_network_security_group" "nsg" {
   name                = "${var.id}-nsg"
-  resource_group_name = data.azurerm_resource_group.vnet_rg.name
-  location            = data.azurerm_resource_group.vnet_rg.location
+  resource_group_name = data.azurerm_resource_group.vm_rg.name
+  location            = data.azurerm_resource_group.vm_rg.location
 
   security_rule {
     name                       = "ssh"
@@ -55,8 +55,8 @@ resource "azurerm_network_security_group" "nsg" {
 
 resource "azurerm_network_interface" "nic" {
   name                = "${var.id}-nic"
-  resource_group_name = data.azurerm_resource_group.vnet_rg.name
-  location            = data.azurerm_resource_group.vnet_rg.location
+  resource_group_name = data.azurerm_resource_group.vm_rg.name
+  location            = data.azurerm_resource_group.vm_rg.location
 
   ip_configuration {
     name                          = "internal"
