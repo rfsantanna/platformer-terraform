@@ -20,10 +20,7 @@ module "vm_network" {
   vnet_name           = var.vnet_name
   subnet_name         = var.subnet_name
   dynamic_ip          = var.dynamic_ip
-  resource_group_name = module.vm_rg.resource_group.name
-  depends_on = [
-    module.vm_rg
-  ]
+  resource_group_name = var.vnet_rg 
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
