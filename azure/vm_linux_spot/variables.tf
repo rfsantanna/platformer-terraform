@@ -4,13 +4,13 @@ variable "size" { type = string }
 variable "resource_group_name" { type = string }
 variable "admin_username" { type = string }
 variable "admin_publickey" { type = string }
-variable "disk_size" {
 variable "subnet_name" { type = string }
 variable "vnet_name" { type = string }
 variable "vnet_rg" {
   type = string 
   default = "static-resources"
 }
+variable "disk_size" {
   type = string
   default = "60"
 }
