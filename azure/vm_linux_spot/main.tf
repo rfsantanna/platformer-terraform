@@ -23,6 +23,12 @@ module "vm_network" {
   vm_rg       = module.vm_rg.resource_group.name
 }
 
+resource "random_password" "vm_password" {
+  length           = 16
+  special          = true
+  override_special = "_%@"
+}
+
 resource "azurerm_linux_virtual_machine" "vm" {
   name                            = var.name
   resource_group_name             = module.vm_rg.resource_group.name
@@ -30,8 +36,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   size                            = var.size
   priority                        = "Spot"
   eviction_policy                 = "Deallocate"
-  disable_password_authentication = true
+  disable_password_authentication = false
   admin_username                  = var.admin_username
+  admin_password                  = random_password.vm_password.result
   custom_data                     = data.cloudinit_config.config.rendered
 
   network_interface_ids = [
