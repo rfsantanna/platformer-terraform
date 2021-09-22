@@ -3,5 +3,3 @@ packages:
   - wget
   - curl
   - git
-  - gnupg
-  - neovim
