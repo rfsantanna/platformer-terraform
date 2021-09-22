@@ -32,7 +32,7 @@ resource "azurerm_public_ip" "ip" {
   name                = "${var.id}-ip-dyn"
   resource_group_name = data.azurerm_resource_group.vm_rg.name
   location            = data.azurerm_resource_group.vm_rg.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 resource "azurerm_network_security_group" "nsg" {
