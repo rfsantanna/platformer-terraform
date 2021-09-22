@@ -57,9 +57,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   source_image_reference {
-    publisher = "Debian"
-    offer     = "debian-11"
-    sku       = "11"
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "19.04"
     version   = "latest"
   }
 }
