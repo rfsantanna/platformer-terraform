@@ -23,3 +23,13 @@ output "vm_full" {
   value     = azurerm_linux_virtual_machine.vm
   sensitive = true
 }
+
+output "ansible_host" {
+  sensitive = true
+  value = {
+    name           = azurerm_linux_virtual_machine.vm.name
+    ip_address     = azurerm_linux_virtual_machine.vm.public_ip_address
+    admin_username = azurerm_linux_virtual_machine.vm.admin_username
+    admin_password = azurerm_linux_virtual_machine.vm.admin_password
+  }
+}
