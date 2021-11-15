@@ -1,9 +1,9 @@
 
 locals {
   inventory = templatefile(
-    "${path.module}/ansible-inventory.yml.tpl", {
+    "${path.module}/ansible-inventory.tpl", {
       hosts      = var.hosts
-      #extra_vars = var.extra_vars
+      extra_vars = var.extra_vars
     }
   )
   inventory_command = "echo '${base64encode(local.inventory)}' | base64 -d  > ${var.inventory_filename}"
