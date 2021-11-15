@@ -1,6 +1,6 @@
 [all]
 %{for host in hosts~}
-${host.name} ansible_host=${host.ip_address} ansible_ssh_user=${host.admin_username} ansible_ssh_password="${host.admin_password}"
+${host.name} ansible_host=${host.ip_address} ansible_user=${host.admin_username} ansible_password="${host.admin_password}"
 %{endfor~}
 
 [all:vars]
