@@ -25,8 +25,7 @@ module "vm_network" {
 
 resource "random_password" "vm_password" {
   length           = 16
-  special          = true
-  override_special = "_%@"
+  special          = false
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
