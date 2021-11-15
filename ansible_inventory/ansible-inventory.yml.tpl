@@ -1,3 +1,4 @@
+---
 all:
   hosts:
 %{for host in hosts~}
