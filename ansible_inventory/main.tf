@@ -1,5 +1,6 @@
 
 locals {
+  inventory = yamlencode(local.inventory_map)
   inventory_map = {
     all = {
       vars = var.extra_vars
@@ -12,12 +13,6 @@ locals {
       }
     }
   }
-  inventory = templatefile(
-    "${path.module}/ansible-inventory.yml.tpl", {
-      hosts      = var.hosts
-      extra_vars = var.extra_vars
-    }
-  )
   inventory_command = "echo '${base64encode(local.inventory)}' | base64 -d  > ${var.inventory_filename}"
 }
 
@@ -25,7 +20,7 @@ resource "null_resource" "inventory_file" {
   count = var.run_playbook != "" ? 1 : 0
 
   triggers = merge({
-    inventory = local.inventory
+    inventory = local.inventory_map
     playbook  = file(var.run_playbook)
   }, var.triggers)
 
