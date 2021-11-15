@@ -1,4 +1,4 @@
 output "inventory" {
-  value     = local.inventory
+  value     = yamlencode(local.inventory_map)
   sensitive = true
 }

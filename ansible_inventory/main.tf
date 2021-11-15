@@ -1,5 +1,11 @@
 
 locals {
+  inventory_map = {
+    all = {
+      hosts = { for host in var.hosts : host.name => host }
+      vars  = var.extra_vars
+    }
+  }
   inventory = templatefile(
     "${path.module}/ansible-inventory.yml.tpl", {
       hosts      = var.hosts
