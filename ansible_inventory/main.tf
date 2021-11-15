@@ -2,8 +2,14 @@
 locals {
   inventory_map = {
     all = {
-      hosts = { for host in var.hosts : host.name => host }
-      vars  = var.extra_vars
+      vars = var.extra_vars
+      hosts = {
+        for host in var.hosts : host.name => {
+          ansible_host     = host.ip_address
+          ansible_user     = host.admin_username
+          ansible_password = host.admin_password
+        }
+      }
     }
   }
   inventory = templatefile(
