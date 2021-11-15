@@ -3,14 +3,8 @@ locals {
   inventory = yamlencode(local.inventory_map)
   inventory_map = {
     all = {
-      vars = var.extra_vars
-      hosts = {
-        for host in var.hosts : host.name => {
-          ansible_host     = host.ip_address
-          ansible_user     = host.admin_username
-          ansible_password = host.admin_password
-        }
-      }
+      vars  = var.extra_vars
+      hosts = { for host in var.hosts : host.name => host }
     }
   }
   inventory_command = "echo '${base64encode(local.inventory)}' | base64 -d  > ${var.inventory_filename}"
