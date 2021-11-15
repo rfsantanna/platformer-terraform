@@ -1,7 +1,7 @@
 
 locals {
   inventory = templatefile(
-    "${path.module}/ansible-inventory.tpl", {
+    "${path.module}/ansible-inventory.yml.tpl", {
       hosts      = var.hosts
       extra_vars = var.extra_vars
     }
