@@ -19,7 +19,9 @@ env:
 %{ for variable, value in env_vars ~}
   ${variable}: "${value}"
 %{ endfor ~}
-  ARM_CLIENT_SECRET: $${{ secrets.AZ_APPSECRET }} 
+%{ for variable, value in secrets ~}
+  ${variable}: $${{ secrets.${variable} }}
+%{ endfor ~} 
   WORKSPACE: default
 
 jobs:
