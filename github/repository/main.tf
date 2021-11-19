@@ -9,7 +9,7 @@ terraform {
 
 locals {
   workflow_file = {
-    "./gihub/workflows/platformer.yml" = templatefile(
+    "./github/workflows/platformer.yml" = templatefile(
       "${path.module}/actions_terraform.yml", var.workflow_vars
     )
   }
