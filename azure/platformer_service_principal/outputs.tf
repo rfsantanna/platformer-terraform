@@ -25,8 +25,10 @@ output "terraform_repo_files" {
 
 output "pipeline_vars" {
   value = {
-    ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
-    ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
-    ARM_CLIENT_ID       = azuread_application.app.application_id
+    env_vars = {
+      ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
+      ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
+      ARM_CLIENT_ID       = azuread_application.app.application_id
+    }
   }
 }
