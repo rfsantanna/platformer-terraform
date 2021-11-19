@@ -15,13 +15,14 @@ on:
 
 env:
   RUN_ANSIBLE: false
+  WORKSPACE: default
+  AZURE_CONFIG_DIR: ./
 %{ for variable, value in env_vars ~}
   ${variable}: "${value}"
 %{ endfor ~}
 %{ for variable, value in secrets ~}
   ${variable}: $${{ secrets.${variable} }}
 %{ endfor ~} 
-  WORKSPACE: default
 
 jobs:
   terraform:
