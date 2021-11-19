@@ -35,6 +35,6 @@ variable "workflow_vars" {
 variable "files" {
   type    = map(any)
   default = {
-    ".platformer/default.tf" = file("${path.module}/default.tf.tpl")
+    ".platformer/default.tf" = "terraform {\n  required_version = \"1.0.10\"\n}"
   }
 }
