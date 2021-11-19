@@ -50,7 +50,6 @@ jobs:
       run: terraform apply -auto-approve tfplan
 
     - name: Run Ansible
-      working-directory: ./ansible
       if: env.RUN_ANSIBLE == true && github.event_name == 'push'
       env:
         ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
