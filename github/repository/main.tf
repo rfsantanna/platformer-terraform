@@ -16,6 +16,10 @@ locals {
   repo_files = merge(local.workflow_file, var.files)
 }
 
+data "github_user" "current" {
+  username = "" 
+}
+
 data "github_repository" "repo" {
   name = var.exists ? var.name : github_repository.repo.0.name
 }
