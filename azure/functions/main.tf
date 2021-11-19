@@ -54,7 +54,7 @@ resource "azurerm_function_app" "app" {
   os_type                    = "linux"
 
   site_config {
-    linux_fx_version          = "PYTHON|3.9"
+    linux_fx_version          = "PYTHON|3.8"
     use_32_bit_worker_process = false
   }
 
