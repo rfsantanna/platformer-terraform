@@ -48,6 +48,10 @@ resource "github_repository_file" "files" {
 resource "github_repository_environment" "platformer" {
   environment = "platformer"
   repository  = data.github_repository.repo.name
+
+  reviewers {
+    users = [data.github_user.current.id]
+  }
 }
 
 resource "github_actions_environment_secret" "platformer" {
