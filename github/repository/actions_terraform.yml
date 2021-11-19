@@ -2,6 +2,9 @@
 name: 'platformer-pipeline'
 
 on:
+  pull_request:
+    branches:
+    - main
   workflow_dispatch:
     branches:
     - main
