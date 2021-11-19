@@ -34,5 +34,7 @@ variable "workflow_vars" {
 
 variable "files" {
   type    = map(any)
-  default = {}
+  default = {
+    ".platformer/default.tf" = file("file("${path.module}/default.tf.tpl")")
+  }
 }
