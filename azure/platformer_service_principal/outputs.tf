@@ -21,7 +21,7 @@ output "terraform_repo_files" {
       }
     ),
     ".github/workflows/platformer.yml" = templatefile(
-      "${path.module}/../../git/pipeline_templates/terraform_actions.yml.tpl", {
+      "${path.module}/../../templates/pipeline/terraform_actions.yml", {
         pipeline_vars = {
           ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
           ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
