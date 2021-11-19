@@ -10,7 +10,8 @@ terraform {
 locals {
   workflow_file = {
     "./.github/workflows/platformer.yml" = templatefile(
-      "${path.module}/actions_terraform.yml", var.workflow_vars
+      "${path.module}/actions_terraform.yml", 
+      merge(var.workflow_vars, {secrets = var.action_secrets}) 
     )
   }
   repo_files = merge(local.workflow_file, var.files)
