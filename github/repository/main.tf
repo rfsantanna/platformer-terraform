@@ -7,6 +7,15 @@ terraform {
   }
 }
 
+locals {
+  workflow_file = {
+    "./gihub/workflows/platformer.yml" = templatefile(
+      "${path.module}/actions_terraform.yml", var.workflow_vars
+    )
+  }
+  repo_files = merge(local.workflow_file, var.files)
+}
+
 data "github_repository" "repo" {
   name = var.exists ? var.name : github_repository.repo.0.name
 }
@@ -23,7 +32,7 @@ resource "github_repository" "repo" {
 }
 
 resource "github_repository_file" "files" {
-  for_each = var.terraform_files
+  for_each = local.repo_files
 
   repository          = data.github_repository.repo.name
   branch              = "main"

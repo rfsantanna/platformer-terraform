@@ -19,15 +19,14 @@ output "terraform_repo_files" {
         container_name       = azurerm_storage_container.blob.name
         key                  = "main.tfstate"
       }
-    ),
-    ".github/workflows/platformer.yml" = templatefile(
-      "${path.module}/../../templates/pipeline/ghactions_terraform_ansible.yml", {
-        pipeline_vars = {
-          ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
-          ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
-          ARM_CLIENT_ID       = azuread_application.app.application_id
-        }
-      }
     )
+  }
+}
+
+output "pipeline_vars" {
+  value = {
+    ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
+    ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
+    ARM_CLIENT_ID       = azuread_application.app.application_id
   }
 }

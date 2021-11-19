@@ -3,32 +3,36 @@ variable "name" {
 }
 
 variable "description" {
-  type = string
+  type    = string
   default = "Created by platformer"
 }
 
 variable "visibility" {
-  type = string
+  type    = string
   default = "public"
 }
 
 variable "action_secrets" {
-  type = map(any)
-  default = {}
-}
-
-variable "terraform_files" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }
 
 variable "archived" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "exists" {
-  type = bool
+  type    = bool
   default = false
 }
 
+variable "workflow_vars" {
+  type    = map(any)
+  default = {}
+}
+
+variable "files" {
+  type    = map(any)
+  default = {}
+}
