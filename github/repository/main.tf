@@ -35,7 +35,7 @@ resource "github_repository_file" "files" {
   for_each = local.repo_files
 
   repository          = data.github_repository.repo.name
-  branch              = "main"
+  branch              = data.github_repository.repo.default_branch
   file                = each.key
   content             = each.value
   overwrite_on_create = false
