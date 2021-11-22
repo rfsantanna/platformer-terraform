@@ -7,6 +7,15 @@ terraform {
   }
 }
 
+locals {
+  workflow_file = {
+    "./.github/workflows/platformer_${var.environment}.yml" = templatefile(
+      "${path.module}/actions_terraform.yml", 
+      var.pipeline_vars
+    )
+  }
+}
+
 data "github_user" "current" {
   username = ""
 }
