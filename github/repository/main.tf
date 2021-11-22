@@ -52,7 +52,7 @@ module "pipeline" {
 
   environment   = each.key
   pipeline_vars = each.value
-  repository    = data.github_repository.name
+  repository    = data.github_repository.repo.name
 
   depends_on = [ github_repository_environment.envs ]
 }
