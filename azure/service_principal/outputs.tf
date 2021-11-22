@@ -22,7 +22,9 @@ output "terraform_files" {
 output "environments" {
   value = {
     for env in var.environments : env => {
-      name = env
+      environment = {
+        name = env 
+      }
       vars = {
         ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
         ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id

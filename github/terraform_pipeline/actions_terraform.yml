@@ -1,4 +1,4 @@
-name: 'platformer-pipeline'
+name: "platformer-pipeline-${environment.name}"
 
 on:
   pull_request:
@@ -28,7 +28,7 @@ jobs:
   terraform:
     name: 'Terraform+Ansible'
     runs-on: ubuntu-latest
-    environment: platformer
+    environment: ${environment.name}
     defaults:
       run:
         working-directory: ./.platformer
