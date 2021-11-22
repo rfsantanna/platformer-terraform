@@ -7,15 +7,6 @@ terraform {
   }
 }
 
-locals {
-  workflow_file = {
-    "./.github/workflows/platformer_${var.environment}.yml" = templatefile(
-      "${path.module}/actions_terraform.yml", 
-      var.pipeline_vars
-    )
-  }
-}
-
 data "github_user" "current" {
   username = ""
 }
@@ -27,8 +18,8 @@ data "github_repository" "repo" {
 resource "github_repository_file" "pipeline" {
   repository          = data.github_repository.repo.name
   branch              = data.github_repository.repo.default_branch
-  file                = each.key
-  content             = each.value
+  file                = "./.github/workflows/platformer_${var.environment}.yml"
+  content             = templatefile("${path.module}/actions_terraform.yml", var.pipeline_vars )
   overwrite_on_create = false
 }
 
