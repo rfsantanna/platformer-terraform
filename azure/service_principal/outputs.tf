@@ -10,7 +10,7 @@ output "appsecret" {
   value = azuread_service_principal_password.secret.value
 }
 
-output "terraform_repo_files" {
+output "terraform_files" {
   value = {
     ".platformer/defaults.tf" = templatefile(
       "${path.module}/base.tf.tpl", {
