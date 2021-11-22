@@ -14,24 +14,26 @@ output "terraform_files" {
   value = {
     ".platformer/defaults.tf" = templatefile(
       "${path.module}/base.tf.tpl", {
-        resource_group_name  = azurerm_resource_group.rg.name
-        storage_account_name = azurerm_storage_account.stacc.name
-        container_name       = azurerm_storage_container.blob.name
+        resource_group_name  = azurerm_resource_group.rg["prd"].name
+        storage_account_name = azurerm_storage_account.stacc["prd"].name
+        container_name       = azurerm_storage_container.blob["prd"].name
         key                  = "main.tfstate"
       }
     )
   }
 }
 
-output "pipeline_vars" {
+output "environments" {
   value = {
-    env_vars = {
-      ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
-      ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
-      ARM_CLIENT_ID       = azuread_application.app.application_id
-    }
-    github_secrets = {
-      ARM_CLIENT_SECRET = azuread_service_principal_password.secret.value
+    for env in var.environments : env => {
+      env_vars = {
+        ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
+        ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
+        ARM_CLIENT_ID       = azuread_application.app[env].application_id
+      }
+      github_secrets = {
+        ARM_CLIENT_SECRET = azuread_service_principal_password.secret[env].value
+      }
     }
   }
 }

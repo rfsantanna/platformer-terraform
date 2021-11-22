@@ -7,18 +7,8 @@ terraform {
   }
 }
 
-locals {
-  workflow_file = {
-    "./.github/workflows/platformer.yml" = templatefile(
-      "${path.module}/actions_terraform.yml", 
-      merge(var.workflow_vars, {secrets = var.action_secrets}) 
-    )
-  }
-  repo_files = merge(local.workflow_file, var.files)
-}
-
 data "github_user" "current" {
-  username = "" 
+  username = ""
 }
 
 data "github_repository" "repo" {
@@ -37,7 +27,7 @@ resource "github_repository" "repo" {
 }
 
 resource "github_repository_file" "files" {
-  for_each = local.repo_files
+  for_each = var.files
 
   repository          = data.github_repository.repo.name
   branch              = data.github_repository.repo.default_branch
@@ -46,20 +36,22 @@ resource "github_repository_file" "files" {
   overwrite_on_create = false
 }
 
-resource "github_repository_environment" "platformer" {
-  environment = "platformer"
-  repository  = data.github_repository.repo.name
+#resource "github_repository_environment" "platformer" {
+#  environment = "platformer"
+#  repository  = data.github_repository.repo.name
+#
+#  reviewers {
+#    users = [data.github_user.current.id]
+#  }
+#}
+#
+module "pipeline" {
+  for_each = var.environments
+  source   = "${path.module}/../terraform_pipeline"
 
-  reviewers {
-    users = [data.github_user.current.id]
-  }
-}
+  environment   = each.key
+  pipeline_vars = each.value
+  repository    = data.github_repository.name
 
-resource "github_actions_environment_secret" "platformer" {
-  for_each = var.workflow_vars.github_secrets
-
-  repository      = data.github_repository.repo.name
-  environment     = github_repository_environment.platformer.environment
-  secret_name     = each.key
-  plaintext_value = each.value
+  depends_on = [ github_repository_environment.platformer ]
 }

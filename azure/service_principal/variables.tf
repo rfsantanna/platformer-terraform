@@ -4,5 +4,5 @@ variable "name" {
 
 variable "environments" {
   type    = list(string)
-  default = ["default"] 
+  default = ["prd"] 
 }
