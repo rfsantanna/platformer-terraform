@@ -3,6 +3,8 @@ variable "name" {
 }
 
 variable "environments" {
-  type    = list(string)
-  default = ["prd"] 
+  type    = map(any)
+  default = {
+    prd = {}
+  }
 }
