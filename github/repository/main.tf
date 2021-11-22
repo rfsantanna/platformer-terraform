@@ -56,7 +56,7 @@ resource "github_repository_environment" "platformer" {
 }
 
 resource "github_actions_environment_secret" "platformer" {
-  for_each = var.action_secrets
+  for_each = var.workflow_vars.github_secrets
 
   repository      = data.github_repository.repo.name
   environment     = github_repository_environment.platformer.environment
