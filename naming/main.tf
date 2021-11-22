@@ -1,7 +1,7 @@
 locals {
   platforms = {
     for file in var.files
-    : trimsuffix(basename(file), "*.yml") => yamldecode(file(file))
+    : trimsuffix(basename(file), ".yml") => yamldecode(file(file))
   }
   github_repos = {
     for platform, config in local.platforms
