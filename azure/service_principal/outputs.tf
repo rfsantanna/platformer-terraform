@@ -21,7 +21,7 @@ output "terraform_files" {
 
 output "environments" {
   value = {
-    for env in var.environments : env => {
+    for env, value in var.environments : env => {
       environment = {
         name = env 
       }
