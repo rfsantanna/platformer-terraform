@@ -27,6 +27,11 @@ variable "exists" {
   default = false
 }
 
+variable "environments" {
+  type    = map(any)
+  default = {}
+}
+
 variable "workflow_vars" {
   type    = map(any)
   default = {}
