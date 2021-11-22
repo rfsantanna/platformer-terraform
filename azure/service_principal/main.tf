@@ -26,41 +26,48 @@ resource "random_string" "id" {
 }
 
 resource "azuread_application" "app" {
-  display_name = "${var.name}-${random_string.id.result}"
+  for_each = toset(var.environments)
+  display_name = "${var.name}-${each.key}-${random_string.id.result}"
   owners       = [data.azuread_client_config.current.object_id]
 }
 
 resource "azuread_service_principal" "sp" {
-  application_id               = azuread_application.app.application_id
+  for_each = toset(var.environments)
+  application_id               = azuread_application.app[each.key].application_id
   app_role_assignment_required = false
   owners                       = [data.azuread_client_config.current.object_id]
 }
 
 resource "azuread_service_principal_password" "secret" {
-  service_principal_id = azuread_service_principal.sp.object_id
+  for_each = toset(var.environments)
+  service_principal_id = azuread_service_principal.sp[each.key].object_id
 }
 
 resource "azurerm_resource_group" "rg" {
+  for_each = toset(var.environments)
   name     = "iac-${azuread_application.app.display_name}"
   location = "brazilsouth"
 }
 
 resource "azurerm_role_assignment" "owner" {
-  scope                = azurerm_resource_group.rg.id
+  for_each = toset(var.environments)
+  scope                = azurerm_resource_group.rg[each.key].id
   role_definition_name = "Owner"
-  principal_id         = azuread_service_principal.sp.object_id
+  principal_id         = azuread_service_principal.sp[each.key].object_id
 }
 
 resource "azurerm_storage_account" "stacc" {
-  name                     = "platformer${random_string.id.result}"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
+  for_each = toset(var.environments)
+  name                     = "platformer${each.key}${random_string.id.result}"
+  resource_group_name      = azurerm_resource_group.rg[each.key].name
+  location                 = azurerm_resource_group.rg[each.key].location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
 resource "azurerm_storage_container" "blob" {
+  for_each = toset(var.environments)
   name                  = "terraform-base"
-  storage_account_name  = azurerm_storage_account.stacc.name
+  storage_account_name  = azurerm_storage_account.stacc[each.key].name
   container_access_type = "private"
 }
