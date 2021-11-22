@@ -20,7 +20,7 @@ env:
 %{ for variable, value in env_vars ~}
   ${variable}: "${value}"
 %{ endfor ~}
-%{ for variable, value in secrets ~}
+%{ for variable, secret in github_secrets ~}
   ${variable}: $${{ secrets.${variable} }}
 %{ endfor ~} 
 
