@@ -24,7 +24,7 @@ resource "github_repository_file" "pipeline" {
 }
 
 resource "github_actions_environment_secret" "test_secret" {
-  for_each = var.pipeline_vars
+  for_each = var.pipeline_vars.secrets
   repository       = data.github_repository.repo.name
   environment      = var.environment
   secret_name      = each.key
