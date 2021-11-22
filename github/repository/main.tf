@@ -42,7 +42,7 @@ resource "github_repository_environment" "envs" {
   repository  = data.github_repository.repo.name
 
   reviewers {
-    users = [data.github_user.current.id]
+    users = each.value.environment.unsecure ? [] : [data.github_user.current.id]
   }
 }
 
