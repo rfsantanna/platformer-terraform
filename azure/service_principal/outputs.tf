@@ -30,5 +30,8 @@ output "pipeline_vars" {
       ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
       ARM_CLIENT_ID       = azuread_application.app.application_id
     }
+    github_secrets = {
+      ARM_CLIENT_SECRET = azuread_service_principal_password.secret.value
+    }
   }
 }
