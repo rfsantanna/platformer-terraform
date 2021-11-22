@@ -45,7 +45,7 @@ resource "azuread_service_principal_password" "secret" {
 
 resource "azurerm_resource_group" "rg" {
   for_each = toset(var.environments)
-  name     = "iac-${azuread_application.app.display_name}"
+  name     = "iac-${azuread_application.app[each.key].display_name}"
   location = "brazilsouth"
 }
 

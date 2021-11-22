@@ -6,10 +6,6 @@ output "resource_group" {
   value = azurerm_resource_group.rg
 }
 
-output "appsecret" {
-  value = azuread_service_principal_password.secret.value
-}
-
 output "terraform_files" {
   value = {
     ".platformer/defaults.tf" = templatefile(
