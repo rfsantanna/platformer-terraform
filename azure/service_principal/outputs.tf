@@ -22,12 +22,12 @@ output "terraform_files" {
 output "environments" {
   value = {
     for env in var.environments : env => {
-      env_vars = {
+      vars = {
         ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
         ARM_SUBSCRIPTION_ID = data.azurerm_client_config.current.subscription_id
         ARM_CLIENT_ID       = azuread_application.app[env].application_id
       }
-      github_secrets = {
+      secrets = {
         ARM_CLIENT_SECRET = azuread_service_principal_password.secret[env].value
       }
     }

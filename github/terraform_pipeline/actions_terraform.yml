@@ -17,10 +17,10 @@ env:
   RUN_ANSIBLE: false
   WORKSPACE: default
   AZURE_CONFIG_DIR: ./
-%{ for variable, value in env_vars ~}
+%{ for variable, value in vars ~}
   ${variable}: "${value}"
 %{ endfor ~}
-%{ for variable, secret in github_secrets ~}
+%{ for variable, secret in secrets ~}
   ${variable}: $${{ secrets.${variable} }}
 %{ endfor ~} 
 
