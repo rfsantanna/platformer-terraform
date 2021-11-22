@@ -26,7 +26,7 @@ resource "random_string" "id" {
 }
 
 resource "azuread_application" "app" {
-  display_name = "${var.name}_${random_string.id.result}"
+  display_name = "${var.name}-${random_string.id.result}"
   owners       = [data.azuread_client_config.current.object_id]
 }
 
