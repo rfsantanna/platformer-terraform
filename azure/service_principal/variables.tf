@@ -3,6 +3,6 @@ variable "name" {
 }
 
 variable "environments" {
-  type    = string
+  type    = list(string)
   default = ["default"] 
 }
