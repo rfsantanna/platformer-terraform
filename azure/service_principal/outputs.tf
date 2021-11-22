@@ -24,7 +24,7 @@ output "environments" {
     for env, value in var.environments : env => {
       environment = {
         name     = env
-        unsecure = value.unsecure ? "yes" : "no"
+        unsecure = lookup(value, "unsecure", false) ? "yes" : "no"
       }
       vars = {
         ARM_TENANT_ID       = data.azurerm_client_config.current.tenant_id
