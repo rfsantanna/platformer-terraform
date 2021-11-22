@@ -36,15 +36,16 @@ resource "github_repository_file" "files" {
   overwrite_on_create = false
 }
 
-#resource "github_repository_environment" "platformer" {
-#  environment = "platformer"
-#  repository  = data.github_repository.repo.name
-#
-#  reviewers {
-#    users = [data.github_user.current.id]
-#  }
-#}
-#
+resource "github_repository_environment" "envs" {
+  for_each = var.environments
+  environment = each.key
+  repository  = data.github_repository.repo.name
+
+  reviewers {
+    users = [data.github_user.current.id]
+  }
+}
+
 module "pipeline" {
   for_each = var.environments
   source   = "${path.module}/../terraform_pipeline"
@@ -53,5 +54,5 @@ module "pipeline" {
   pipeline_vars = each.value
   repository    = data.github_repository.name
 
-  depends_on = [ github_repository_environment.platformer ]
+  depends_on = [ github_repository_environment.envs ]
 }
