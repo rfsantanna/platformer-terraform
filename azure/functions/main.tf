@@ -74,6 +74,7 @@ resource "null_resource" "functions" {
   }
   provisioner "local-exec" {
     command = <<EOT
+    sleep 20
     az login --service-principal -u $ARM_CLIENT_ID -p "$ARM_CLIENT_SECRET" --tenant $ARM_TENANT_ID
     cd functions && func init . --worker-runtime python 
     func azure functionapp publish ${azurerm_function_app.app.name}
