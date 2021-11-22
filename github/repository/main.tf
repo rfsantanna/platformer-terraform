@@ -48,7 +48,7 @@ resource "github_repository_environment" "envs" {
 
 module "pipeline" {
   for_each = var.environments
-  source   = "${path.module}/../terraform_pipeline"
+  source   = "git::https://github.com/rfsantanna/platformer-terraform//github/terraform_pipeline"
 
   environment   = each.key
   pipeline_vars = each.value
