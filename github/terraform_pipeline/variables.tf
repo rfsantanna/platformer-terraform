@@ -4,7 +4,7 @@ variable "environment" {
 }
 
 variable "pipeline_vars" {
-  type = map(any)
+  type = map()
   default = {}
 }
 
