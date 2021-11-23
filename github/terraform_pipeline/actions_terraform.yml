@@ -42,7 +42,7 @@ jobs:
         sudo unzip -o terraform.zip -d /usr/bin
 
     - name: Terraform Init
-      run: terraform init -backend-config=backends/${environment.name}
+      run: terraform init -backend-config=./backends/${environment.name}
 
     - name: Terraform Workspace
       run: terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
