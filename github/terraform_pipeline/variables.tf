@@ -11,3 +11,8 @@ variable "pipeline_vars" {
 variable "repository" {
   type = string
 }
+
+variable "files" {
+  type = map(any)
+  default = {}
+}
