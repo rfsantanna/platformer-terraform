@@ -36,7 +36,7 @@ resource "github_repository_file" "tf" {
   repository          = data.github_repository.repo.name
   branch              = data.github_repository.repo.default_branch
   file                = ".platformer/defaults.tf"
-  content             = templatefile("${path.module}/defaults.tf.tmpl", {})
+  content             = templatefile("${path.module}/providers.tf.tmpl", {})
   overwrite_on_create = false
 }
 
