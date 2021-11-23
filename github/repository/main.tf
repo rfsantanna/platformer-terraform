@@ -26,6 +26,14 @@ resource "github_repository" "repo" {
   archive_on_destroy = false
 }
 
+resource "github_repository_file" "extra" {
+  repository          = data.github_repository.repo.name
+  branch              = data.github_repository.repo.default_branch
+  file                = each.key
+  content             = each.value
+  overwrite_on_create = false
+}
+
 resource "github_repository_environment" "envs" {
   for_each = var.environments
   environment = each.key

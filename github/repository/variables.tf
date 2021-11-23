@@ -41,3 +41,8 @@ variable "terraform_backend" {
   type    = map(any)
   default = {}
 }
+
+variable "files" {
+  type    = map(any)
+  default = {}
+}
