@@ -27,6 +27,7 @@ resource "github_repository" "repo" {
 }
 
 resource "github_repository_file" "extra" {
+  for_each = var.files
   repository          = data.github_repository.repo.name
   branch              = data.github_repository.repo.default_branch
   file                = each.key
