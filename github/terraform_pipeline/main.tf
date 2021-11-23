@@ -31,14 +31,6 @@ resource "github_repository_file" "backend" {
   overwrite_on_create = false
 }
 
-resource "github_repository_file" "tf" {
-  repository          = data.github_repository.repo.name
-  branch              = data.github_repository.repo.default_branch
-  file                = ".platformer/defaults.tf"
-  content             = templatefile("${path.module}/providers.tf.tmpl", {})
-  overwrite_on_create = false
-}
-
 resource "github_actions_environment_secret" "test_secret" {
   for_each = var.pipeline_vars.secrets
   repository       = data.github_repository.repo.name
