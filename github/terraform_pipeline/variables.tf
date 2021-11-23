@@ -12,7 +12,7 @@ variable "repository" {
   type = string
 }
 
-variable "files" {
+variable "backend" {
   type = map(any)
   default = {}
 }
