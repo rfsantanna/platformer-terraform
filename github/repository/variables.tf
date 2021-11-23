@@ -37,9 +37,7 @@ variable "workflow_vars" {
   default = {}
 }
 
-variable "files" {
+variable "terraform_backend" {
   type    = map(any)
-  default = {
-    ".platformer/default.tf" = "terraform {}"
-  }
+  default = {}
 }

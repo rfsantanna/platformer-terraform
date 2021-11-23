@@ -24,11 +24,10 @@ resource "github_repository_file" "pipeline" {
 }
 
 resource "github_repository_file" "backend" {
-  for_each = var.backend
   repository          = data.github_repository.repo.name
   branch              = data.github_repository.repo.default_branch
-  file                = ".platformer/backends/${each.key}"
-  content             = templatefile("${path.module}/backend.tmpl", each.value)
+  file                = ".platformer/backends/${var.environment}"
+  content             = templatefile("${path.module}/backend.tmpl", var.backend)
   overwrite_on_create = false
 }
 

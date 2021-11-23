@@ -43,7 +43,7 @@ module "pipeline" {
   environment   = each.key
   pipeline_vars = each.value
   repository    = data.github_repository.repo.name
-  backend       = var.files[each.key]
+  backend       = var.terraform_backend[each.key]
 
   depends_on = [ github_repository_environment.envs ]
 }
