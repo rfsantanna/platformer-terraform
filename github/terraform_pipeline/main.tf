@@ -23,12 +23,20 @@ resource "github_repository_file" "pipeline" {
   overwrite_on_create = false
 }
 
-resource "github_repository_file" "extra" {
-  for_each = var.files
+resource "github_repository_file" "backend" {
+  for_each = var.backend
   repository          = data.github_repository.repo.name
   branch              = data.github_repository.repo.default_branch
-  file                = each.key
-  content             = each.value
+  file                = ".platformer/backends/${each.key}"
+  content             = templatefile("${path.module}/backend.tmpl", each.value)
+  overwrite_on_create = false
+}
+
+resource "github_repository_file" "tf" {
+  repository          = data.github_repository.repo.name
+  branch              = data.github_repository.repo.default_branch
+  file                = ".platformer/defaults.tf"
+  content             = templatefile("${path.module}/defaults.tf.tmpl", {})
   overwrite_on_create = false
 }
 

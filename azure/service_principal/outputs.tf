@@ -6,17 +6,13 @@ output "resource_group" {
   value = azurerm_resource_group.rg
 }
 
-output "terraform_files" {
+output "terraform_backend" {
   value = {
     for env, value in var.environments : env => {
-      ".platformer/backends/${env}.tf" = templatefile( 
-        "${path.module}/backend.tmpl", {
-          resource_group_name  = azurerm_resource_group.rg[env].name
-          storage_account_name = azurerm_storage_account.stacc[env].name
-          container_name       = azurerm_storage_container.blob[env].name
-          key                  = "main.tfstate"
-        }
-      )
+      resource_group_name  = azurerm_resource_group.rg[env].name
+      storage_account_name = azurerm_storage_account.stacc[env].name
+      container_name       = azurerm_storage_container.blob[env].name
+      key                  = "main.tfstate"
     }
   }
 }
