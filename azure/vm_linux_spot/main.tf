@@ -66,7 +66,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 data "azurerm_public_ip" "updated" {
   name                = module.vm_network.public_ip.name
-  resource_group_name = module.vm_network.vnet_rg.name
+  resource_group_name = var.dynamic_ip ? module.vm_network.vnet_rg.name : "static-resources"
   depends_on = [
     azurerm_linux_virtual_machine.vm
   ]
