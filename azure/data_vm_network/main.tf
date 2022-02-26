@@ -35,7 +35,7 @@ resource "azurerm_public_ip" "ip" {
   allocation_method   = "Static"
 }
 
-#resource "azurerm_network_security_group" "nsg" {
+resource "azurerm_network_security_group" "nsg" {
   name                = "${var.id}-nsg"
   resource_group_name = data.azurerm_resource_group.vm_rg.name
   location            = data.azurerm_resource_group.vm_rg.location
