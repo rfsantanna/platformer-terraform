@@ -1,0 +1,33 @@
+[all]
+%{ for host in hosts }
+${host.name} ansible_host=${host.ip_address} ansible_user="${host.admin_username}" ansible_password="${host.admin_password}" ${lookup(host, "extra_vars", "")}
+%{ endfor ~}
+
+%{ for group in coalescelist(distinct(flatten(hosts.*.group)), ["undefined_group"]) ~}
+[${group}]
+%{ for host in hosts ~}
+%{ if host.group == "${group}" && host.group != "all" ~}
+${host.name} 
+%{ endif ~}
+%{~ endfor ~}
+%{ endfor ~}
+
+[all:vars]
+ansible_ssh_common_args="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+%{for var_name, var_value in extra_vars~}
+${var_name}="${var_value}"
+%{endfor~}
+
+%{ for group,hostnames in extra_groups ~}
+[${group}]
+%{ for hostname in hostnames ~}
+${hostname} 
+%{ endfor ~}
+%{ endfor ~}
+
+%{ for group,children in children_groups ~}
+[${group}:children]
+%{ for child in children ~}
+${child} 
+%{ endfor ~}
+%{ endfor ~}
