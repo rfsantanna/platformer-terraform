@@ -35,3 +35,7 @@ variable "init_scripts" {
   default = {}
 }
 
+variable "ansible_group" {
+  type = string
+  default = "linux_machines"
+}
